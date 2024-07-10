@@ -164,7 +164,7 @@ env:
             if bCleared:
                 return
     
-            df_bars = context.stra_get_bars(code, self.__period__, self.__bar_cnt__, isMain = True)
+            bars = context.stra_get_bars(code, self.__period__, self.__bar_cnt__, isMain = True)
             N = self.__N__
             a = self.__a__
             b = self.__b__
@@ -172,14 +172,14 @@ env:
             d = self.__d__
     
             #平仓价序列、最高价序列、最低价序列
-            closes = df_bars["close"]
-            highs = df_bars["high"]
-            lows = df_bars["low"]
+            closes = bars["close"]
+            highs = bars["high"]
+            lows = bars["low"]
     
             #读取days天之前到上一个交易日位置的数据
             hh = highs[-N:].max()   #N条最高价
             ll = lows[-N:].min()    #N条最低价
-            lc = closes.iloc[-1]    #最后收盘价
+            lc = closes[-1]    #最后收盘价
     
             Ssetup = hh + a * (lc - ll)
             Bsetup = ll - a * (hh - lc)
